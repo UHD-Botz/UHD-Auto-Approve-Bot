@@ -17,7 +17,7 @@ except ValueError:
     LOG_CHANNEL = None
 
 # Bot Images
-PICS = [x for x in os.environ.get("PICS", "").split() if x]
+PICS = [x for x in os.environ.get("PICS", "https://envs.sh/ecE.jpg/IMG20250901266.jpg").split() if x]
 
 # DB Settings
 DB_URI = os.environ.get("DB_URI", "")
