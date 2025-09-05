@@ -1,1 +1,1 @@
-worker: python3 -m UHDBots
+worker: python3 main.py
