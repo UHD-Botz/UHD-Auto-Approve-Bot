@@ -3,10 +3,3 @@ pytz
 tgcrypto
 motor
 aiohttp
-
-# For Web Deployable
-Flask
-gunicorn
-Jinja2
-werkzeug
-itsdangerous
