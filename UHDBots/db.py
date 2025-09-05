@@ -2,14 +2,16 @@ from typing import Any
 from config import DB_URI, DB_NAME
 from motor import motor_asyncio
 
+# Database client setup
 client: motor_asyncio.AsyncIOMotorClient[Any] = motor_asyncio.AsyncIOMotorClient(DB_URI)
 db = client[DB_NAME]
 
-class Techifybots:
+class UHDBots:
     def __init__(self):
         self.users = db["users"]
         self.cache: dict[int, dict[str, Any]] = {}
 
+    # Add new user
     async def add_user(self, user_id: int, name: str) -> dict[str, Any] | None:
         try:
             user: dict[str, Any] = {"user_id": user_id, "name": name, "session": None}
@@ -19,6 +21,7 @@ class Techifybots:
         except Exception as e:
             print("Error in add_user:", e)
 
+    # Get single user
     async def get_user(self, user_id: int) -> dict[str, Any] | None:
         try:
             if user_id in self.cache:
@@ -31,6 +34,7 @@ class Techifybots:
             print("Error in get_user:", e)
             return None
 
+    # Set user session
     async def set_session(self, user_id: int, session: Any) -> bool:
         try:
             result = await self.users.update_one(
@@ -44,6 +48,7 @@ class Techifybots:
             print("Error in set_session:", e)
             return False
 
+    # Get session of user
     async def get_session(self, user_id: int) -> Any | None:
         try:
             user = await self.get_user(user_id)
@@ -52,6 +57,7 @@ class Techifybots:
             print("Error in get_session:", e)
             return None
 
+    # Get all users
     async def get_all_users(self) -> list[dict[str, Any]]:
         try:
             users: list[dict[str, Any]] = []
@@ -62,6 +68,7 @@ class Techifybots:
             print("Error in get_all_users:", e)
             return []
 
+    # Delete user
     async def delete_user(self, user_id: int) -> bool:
         try:
             result = await self.users.delete_one({"user_id": user_id})
@@ -71,4 +78,5 @@ class Techifybots:
             print("Error in delete_user:", e)
             return False
 
+# ✅ Final usable instance
 tb = UHDBots()
