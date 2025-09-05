@@ -71,4 +71,4 @@ class Techifybots:
             print("Error in delete_user:", e)
             return False
 
-tb = Techifybots()
+tb = UHDBots()
